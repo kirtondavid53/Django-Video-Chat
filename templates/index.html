@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<br>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+{% endif %}
+    <div class="row">
+      <div class="col">
+        <br><br><br><br>
+        <h4>Welcome {{user.username}}</h4>
+        <h1>Video calls and meetings for everyone.</h1>
+        <p> This video chat app is not intented for commercial purposes</p>
+        <div class="my-row">
+            <form method="POST" class="row g-3 item">
+                {% csrf_token %}
+                <div class="col-auto">
+                <input name="code" type="text" class="form-control"  placeholder="Enter meeting code">
+                </div>
+                <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Join</button>
+                </div>
+            </form>
+            <a class="btn btn-primary" href="{% url 'room' %}" role="button">New Meeting</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <br><br><br><br>
+        <img src="{% static 'images/image.jpg' %}" alt="image" class="img-responsive fit-image">
+      </div>
+    </div>
+  
+{% endblock %}
+
