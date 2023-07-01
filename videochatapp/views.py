@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
 
 def index(request):
     curr_user = request.user
@@ -82,7 +83,7 @@ def logout_view(request):
 
 def video_call(request):
     if request.user.is_authenticated:
-        return render(request, 'videochat.html',  {"name" : request.user.first_name+ " "+ request.user.last_name})
+        return render(request, 'videochat.html',  {"name" : request.user.first_name+ " "+ request.user.last_name, 'APPID':settings.APPID, 'SECRET':settings.SERVER_SECRET})
     else:
         messages.info(request, "Please login or register to get started")
         return redirect('index')
